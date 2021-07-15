@@ -80,48 +80,11 @@ https://github.com/jinkyukim-me/markdown_ko#11-emoji-%EC%9D%B4%EB%AA%A8%ED%8B%B0
 
 에서 마크다운 공부
 
-
-
-## 터미널
-
-### 중요한 것은 우리가 탐색기(GUI(Graphic User Interface))에서 할 수 있는 모든 행동을 터미널(CLI(Command Line Interface))에서 동일하게 할 수 있음.
-
-* cd : change directory
-* mkdir: make directory
-* 위로 올리기 ctrl + l
-
-* 터미널 자동완성 : cd M상태에서 tab누르면 갈수있는 디렉토리 나옴.
-* touch a.txt : 텍스트 파일 생성.
-* cp a.txt a-copy.txt => a를 a-copy로 복사함.
-* rm -rf [파일,폴더명] => remove
-* cd ~ (홈으로 감)
-
-## GIT
-
-### 수정 및 버전관리, 백업을 하기위한 도구(용량문제나 백업이 안되어 내용 상실을 해결하기 위한)효율적인 버전관리 저장소.
-
-++용량문제 해결을 위해 "변경사항"만 남긴다.(겹치는 부분 다 삭제)
-
-* git init
-* git add .
-
-디렉토리를 사진찍기위한 명단
-
-* git commit -m "~~~~"
-
-사진을 찍는다.
-
-* git config --global user.email "~~~"
-
-전자 서명을 만든다.(커밋 작성자 설정)
-
-* git config --global user.name 
-* git config --global -l  : 이거로 설정 확인.
-* git log : commit된 내용을 확인.
-* git remote [repo주소]
-* git remote -v로 확인
-
 ## TIL(today i learn)
 
 github에 정리
+
+
+
+:package:이모지는 : (콜론)쓰고 쓰고싶은 이모지 명 찾아서 입력.
 
