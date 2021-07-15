@@ -123,3 +123,5 @@ https://github.com/jinkyukim-me/markdown_ko#11-emoji-%EC%9D%B4%EB%AA%A8%ED%8B%B0
 
 ## TIL(today i learn)
 
+github에 정리
+
