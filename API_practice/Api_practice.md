@@ -1,72 +1,67 @@
-# 챗봇만들기
-
-주소에서 URL은 ?앞쪽. 
-
-?뒤는 method같은 속성값을 줌.
-
-모든 URL의 존재이유는 "요청"(requests? 검색?)
-
-https://api.telegram.org/bot<token>/METHOD_NAME
-
-token="1724882175:AAH6amNRwG1Ujx9EqSzJxx9cW3o0zKEZYPE"
-
-API는 너무 좋지만 중요한 것은 늘 API제공자가원하는대로
-
-요청을 보내줘야함(URL형식) => 늘 공식문서를 꼼꼼히 읽어야함.
-
-(메소드명은 늘 명확하게)(줄이면 골때림.)
-
-sendMassage?
-
-누구한테? 뭐라고?=> parameter를 줘야함.
+# Flask를 이용한 API활용.
 
 
 
-getUpdate = 업데이트된 현황을 얻음.
+주소는
 
 
 
-네이버 개발자센터. 로그인.
+URL(요청)
 
--> 서비스 API
+'?'
 
-오픈API등록신청
+method(속성)
 
-->document읽기.
 
+
+로 이루어진다.
+
+
+
+**모든 URL의 존재이유는 "요청(requests)"**
+
+​	API는 늘 API제공자가원하는대로 요청을 보내줘야함(URL형식)(매우중요) 
+
+​	=> 늘 공식문서(document)를 꼼꼼히 읽어야함.
+
+​	(ex. https://core.telegram.org/bots/api#setwebhook)
+
+​	(ex. https://developers.naver.com/apps/#/list)
+
+​	(ex. https://developers.naver.com/docs/serviceapi/search/shopping/shopping.md#%EC%87%BC%ED%95%91)
+
+
+
+다음과 같은 내용으로 보아 API는 Cli 시크릿값 or 인증을 통한 접근 토큰
+
+같은 걸 필요로 함.
+
+```
 비로그인 방식 오픈 API는 HTTP 헤더에 클라이언트 아이디와 클라이언트 시크릿 값만 전송해 사용할 수 있는 오픈 API입니다. 네이버 아이디로 로그인의 인증을 통한 접근 토큰을 획득할 필요가 없습니다.
+```
 
-client id = Uj48SCcm0EOdCndhfSS9
+* GET  =>  받는거.(URL로 요청을 보내면)
 
-secret code = Y5stEpZxo2
+* POST  =>  줄테니 받아서 처리해줘라
 
++++XML -> JSON(JSON이 더쌈.)
 
-
-네이버 쇼핑 검색 결과를 출력해주는 REST API입니다. 비로그인 오픈 API이므로 GET으로 호출할 때 HTTP Header에 애플리케이션 등록 시 발급받은 [Client ID와 Client Secret 값을 같이 전송](https://developers.naver.com/docs/common/apicall)해 주시면 활용 가능합니다.
-
-
-
-GET  => 받는거.(URL로 요청을 보내면)
-
-POST  =>   줄테니 받아서 처리해줘라
-
-XML -> JSON(JSON이 더쌈.)
+---
 
 
+```
+-요청변수는 늘 ? 붙히고 뒤에 변수=꼴로 넣음.
 
-=> 요청변수는 늘 ? 붙히고 뒤에 변수=꼴로 넣음.
+-requests, respons Headers는 key:value들로 이루어져있음
 
-requests, respons Headers는 key:value들로 이루어져있음
+-id, code를 보내려면 requests Header에 두개를 껴서 보내야함.
 
-id, code를 보내려면 requests Header에 두개를 껴서 보내야함.
-
-그러나 웹 ''브라우저''에서는 불가능함.
+-그러나 웹 ''브라우저''에서는 불가능함. => 서버에서 전송 시 붙혀서 보내야함.
+```
 
 
 
 ## 비로그인 방식 오픈 API 호출 예시 中
-
-
 
 ```java
 con.setRequestMethod("GET");
@@ -103,7 +98,7 @@ pprint는 json파일 정리해서 이쁘게 출력해줌.
 
 ---
 
-네이버같은 사이트는 robot.txt에서 크롤링을 제한함.
++++네이버같은 사이트는 robot.txt에서 크롤링을 제한함.
 
 (크롤링규칙이 적혀있음. 모든 사이트에 대해 disallow)
 
@@ -111,21 +106,28 @@ pprint는 json파일 정리해서 이쁘게 출력해줌.
 
 ---
 
+
+
 일의 단위 = 함수
 
 => 기능이 분리되어있다면 모듈단위(함수단위)로 설계할수있음.
+
+
 
 ---
 
 ## 하위 디렉토리 모두 B위치로 복사.
 
-cp -r ./상품검색봇 /mnt/c/Users/한승주
-
+```
+$cp -r ./상품검색봇 /mnt/c/Users/한승주
+```
 
 
 ---
 
-텔레그램 봇에게 설정시켜야함
+
+
+#### Response의 방식
 
 1. 메세지가오면
 2. 어디론가??(우리의 URL??우리 요청어떻게 받아?)
@@ -133,7 +135,7 @@ cp -r ./상품검색봇 /mnt/c/Users/한승주
 
 
 
-대접한다. 응답을 준다 serve -> server
+대접한다는 영어로 serve -> server
 
 요청한다. ->client (웹 브라우저)
 
@@ -141,26 +143,31 @@ cp -r ./상품검색봇 /mnt/c/Users/한승주
 
 
 
+## Flask로 서버구축
+```
 python -m pip install flask
-
-
+```
 
 =>flask 서버 만든다.
 
 
 
-=>telegram 에서 요청 받으려면 setWebhook을 해야함.
+=>telegram 에서 요청 받으려면 setWebhook을 해야함.(내부 정보를 우리에 보내주는)
 
 ---
+
+## 도메인과 IP
+
+
 
 모든 도메인은 IP가 있다.
 
 
-
+```
 IP 서울특별시 ㅇㅇ구 ㅇㅇ동 몇 번지 몇 호
 
 Domain 역삼 멀티캠퍼스
-
+```
 
 
 우리 주소는 어디야?
@@ -170,6 +177,8 @@ Domain 역삼 멀티캠퍼스
 (외부에서는 우리집이 어딘 지 알 수 없다.)
 
 
+
+## Ngrok이용 우회주소 설정.
 
 서버컴퓨터는 외부요청을 받을 수 있으나
 
@@ -191,25 +200,25 @@ ngrok http 5000
 
 => 안되면 ngrok직접오픈.
 
+
+
 ngrok주소(우회 가능한 URL) -> NGROK이 중계를 해서
 
 내 컴퓨터의 5000번에 돌고있는 flask에 포워딩해줌.(forwarding)
 
- => https://226562ce76b2.ngrok.io 
 
-주소를 쳐도 나옴.=> 얘는 외부에서 접속이 됨.
 
 ---
 
-telegram API에 nrok setWebhook으로 접속. 연결되나 확인.
+API에 ngrok setWebhook으로 접속. 연결되나 확인.
 
 ```python
 if __name__  == '__main__':
-    token="1724882175:AAH6amNRwG1Ujx9EqSzJxx9cW3o0zKEZYPE"
-    print(f'https://api.telegram.org/bot{token}/setWebhook?url=https://226562ce76b2.ngrok.io/recieve')
+    token={API접근 토큰 주소}
+    print(f'https://api.telegram.org/bot{token}/setWebhook?url=[Ngrok Forwarding 주소]')
 ```
 
-=> 텔레그램에서 setWebhook 타겟 목적지 우회 서버로 설정하면
+=> setWebhook 타겟 목적지 우회 서버로 설정하면
 
 
 
@@ -233,7 +242,7 @@ POST 메소드로 request.get_json()받아짐.
 
 ---
 
-bot A -> 텔레그램 server의 Webhook안에 botA가 받은 모든 msg를ngrok주로소 보내고. 이걸 ngrok이 127.0.0.1로 포워딩 시킹.
+server의 Webhook안에 상대가 받은 모든 msg를ngrok주로소 보내고. 이걸 ngrok이 127.0.0.1로 포워딩 시킹.
 
 이걸 내 서버가 받아
 
@@ -247,11 +256,13 @@ recieve함수를 실행해 send_message를 함.
 
 #### (딱 정해져있는게 아니라 요청하면 Client고 받으면 Server다.)
 
-App -> Telegram Server
+(한번의 과정에도 여러번 client와 server가 바뀜.)
 
-Telegram Server -> Ngrok
 
-Ngrok -> Flask Server
 
-Flask Server -> Telegram Server
+---
+
+https://www.pythonanywhere.com/user/hansj/webapps/#tab_id_hansj_pythonanywhere_com
+
+파이썬 애니웨어 이용 내컴퓨터를 켜놓고 있지 않아도 되도록 클라우드 베포함.
 
